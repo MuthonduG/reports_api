@@ -13,8 +13,13 @@ services:
       - PG_DB=postgres
       - PG_HOST=db
       - PG_PORT=5432
+      - CELERY_BROKER_URL=redis://redis:6379/0
     depends_on:
       - db
+      - redis
+    volumes:
+      - .:/app
+
   db:
     container_name: db
     image: postgres:17
@@ -26,6 +31,36 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+
+  redis:
+    container_name: redis
+    image: redis:6.2
+    ports:
+      - "6379:6379"
+
+  celery:
+    container_name: celery
+    build: .
+    command: celery -A your_project worker --loglevel=info
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    volumes:
+      - .:/app
+    depends_on:
+      - djangoapp
+      - redis
+
+  celery_beat:
+    container_name: celery_beat
+    build: .
+    command: celery -A your_project beat --loglevel=info
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    volumes:
+      - .:/app
+    depends_on:
+      - djangoapp
+      - redis
 
 volumes:
   pgdata: {}
