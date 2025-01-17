@@ -8,11 +8,14 @@ click-didyoumean==0.3.1
 click-plugins==1.1.1
 click-repl==0.3.0
 cloudinary==1.42.1
+cron-descriptor==1.4.5
 Django==5.1.4
+django-celery-beat==2.7.0
 django-cors-headers==4.6.0
 django-filter==24.3
 django-model-utils==5.0.0
 django-notifications-hq==1.8.3
+django-timezone-field==7.1
 djangorestframework==3.15.2
 djangorestframework_simplejwt==5.4.0
 joblib==1.4.2
@@ -26,6 +29,7 @@ opencv-python==4.10.0.84
 prompt_toolkit==3.0.48
 psycopg2-binary==2.9.10
 PyJWT==2.10.1
+python-crontab==3.2.0
 python-dateutil==2.9.0.post0
 python-decouple==3.8
 pytz==2024.2
